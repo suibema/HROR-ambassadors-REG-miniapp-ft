@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <img src="FT20LOGO@4x.png" width="100"><br>
+  <h2>Регистрация</h2>
+  <form id="reg-form">
+    <label>Фамилия</label>
+    <input type="text"  name="surname" id="surname"/>
+
+    <label>Имя</label>
+    <input type="text"  name="name" id="name"/>
+
+    <label>Укажи, пожалуйста, свою почту</label>
+    <input type="text"  name="email" id="email" placeholder="your@email.com" />
+    
+    <label>Оставь номер телефона — он может понадобиться для связи</label>
+    <input type="text" name="phone" placeholder="7XXXXXXXXXX" id="phone"/>
+    
+  <ul class="question-list" name='foreign_phone' id='foreign_phone'> 
+  <li class="question-list__item" id="foreign_phone_input">
+      <input type="checkbox" name="foreign_phone_yes" value="1" id="foreign_phone_yes">
+      <label for="foreign_phone_yes" id="foreign_phone_text">У меня иностранный номер</label>
+    </li>
+  </ul>
+
+  <input type="text" name="foreign_phone_type" placeholder="+" id="foreign_phone_type" style="display: none;"/>
+
+  
+    <label>Выбери город, в которой ты сейчас живешь</label>
+    <select  name="city" required id="city">
+      <option value="">- выбрать -</option>
+      <option value="Москва или МО">Москва или МО</option>
+      <option value="Санкт-Петербург">Санкт-Петербург</option>
+      <option value="Алматы">Алматы</option>
+      <option value="Другой">Другой</option>
+    </select>
+    
+    <input type="text" name="city-other" id="city-other" placeholder="Напиши свой город" style="display: none;">
+    
+    <label>Выбери страну, в которой ты сейчас проживаешь</label>
+    <select  name="citizen" id="citizen">
+      <option value="">- выбрать -</option>
+      <option value="РФ">Россия</option>
+      <option value="Беларусь">Беларусь</option>
+      <option value="Казахстан">Казахстан</option>
+      <option value="Армения">Армения</option>
+      <option value="Киргизия">Киргизия</option>
+      <option value="Другое">Другое</option>
+    </select>
+    
+    <input type="text" name="citizen-other" id="citizen-other" placeholder="Напиши свое гражданство" style="display: none;">
+
+    <label>Где ты учишься или учился(ась)? Напиши название учебного заведени</label>
+    <input  type="text" name="vuz" id="vuz"/>
+    
+    <label>Какое у тебя направление подготовки? Напиши свою специальность</label>
+    <input  type="text" name="specialty" id="specialty"/>
+    
+    <label>Выбери ступень образования, на которой ты сейчас обучаешься или уже закончил(а) обучение</label>
+    <select  name="study" id="study">
+      <option value="">- выбрать -</option>
+      <option value="Бакалавриат">Бакалавриат</option>
+      <option value="Специалитет">Специалитет</option>
+      <option value="Магистратура">Магистратура</option>
+      <option value="Аспирантура">Аспирантура</option>
+      <option value="Среднее специальное">Среднее специальное</option>
+      <option value="Среднее общее (школа)">Среднее общее (школа)</option>
+    </select>
+    
+    <label>Когда планируешь или уже закончил(а) учёбу?</label>
+    <select  name="finished" id="finished">
+      <option value="">- выбрать -</option>
+      <option value="2024 и ранее">2024 и ранее</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029 и позднее">2029 и позднее</option>
+    </select>
+
+    <label>Можешь оформить самозанятость?</label>
+    <select  name="smz" id="smz">
+      <option value="">- выбрать -</option>
+      <option value="Да">Да</option>
+      <option value="Нет">Нет</option>
+    </select>
+
+    <button type="submit">ОТПРАВИТЬ</button>
+  </form>
+  <p id="reg-error" style="color: red;"></p>
+  <p id="reg-ok" style="color: green;"></p>
+
+  <script src="test_tg.js"></script>
+</body>
+</html>
