@@ -13,13 +13,13 @@
   <h2>Регистрация</h2>
   <form id="reg-form">
     <label>Фамилия</label>
-    <input type="text"  name="surname" id="surname"/>
+    <input type="text"  required name="surname" id="surname"/>
 
     <label>Имя</label>
-    <input type="text"  name="name" id="name"/>
+    <input type="text"  required name="name" id="name"/>
 
     <label>Укажи, пожалуйста, свою почту</label>
-    <input type="text"  name="email" id="email" placeholder="your@email.com" />
+    <input type="text"  required name="email" id="email" placeholder="your@email.com" />
     
     <label>Оставь номер телефона — он может понадобиться для связи</label>
     <input type="text" name="phone" placeholder="7XXXXXXXXXX" id="phone"/>
@@ -46,7 +46,7 @@
     <input type="text" name="city-other" id="city-other" placeholder="Напиши свой город" style="display: none;">
     
     <label>Укажи свое гражданство</label>
-    <select  name="citizen" id="citizen">
+    <select  name="citizen" required id="citizen">
       <option value="">- выбрать -</option>
       <option value="Россия">Россия</option>
       <option value="Беларусь">Беларусь</option>
@@ -59,13 +59,13 @@
     <input type="text" name="citizen-other" id="citizen-other" placeholder="Напиши свое гражданство" style="display: none;">
 
     <label>Где ты учишься или учился(ась)? Напиши название учебного заведени</label>
-    <input  type="text" name="vuz" id="vuz"/>
+    <input  type="text" required name="vuz" id="vuz"/>
     
     <label>Какое у тебя направление подготовки? Напиши свою специальность</label>
-    <input  type="text" name="specialty" id="specialty"/>
+    <input  type="text" required name="specialty" id="specialty"/>
     
     <label>Выбери ступень образования, на которой ты сейчас обучаешься или уже закончил(а) обучение</label>
-    <select  name="study" id="study">
+    <select  name="study" required id="study">
       <option value="">- выбрать -</option>
       <option value="Бакалавриат">Бакалавриат</option>
       <option value="Специалитет">Специалитет</option>
@@ -76,7 +76,7 @@
     </select>
     
     <label>Когда планируешь или уже закончил(а) учёбу?</label>
-    <select  name="finished" id="finished">
+    <select  name="finished" required id="finished">
       <option value="">- выбрать -</option>
       <option value="2024 и ранее">2024 и ранее</option>
       <option value="2025">2025</option>
@@ -87,7 +87,7 @@
     </select>
 
     <label>Можешь оформить самозанятость?</label>
-    <select  name="smz" id="smz">
+    <select  name="smz" required id="smz">
       <option value="">- выбрать -</option>
       <option value="Да">Да</option>
       <option value="Нет">Нет</option>
@@ -102,4 +102,5 @@
 </body>
 
 </html>
+
 
