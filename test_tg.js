@@ -179,7 +179,11 @@ async function handleSubmitSupabase(data, selectedReadyToCommute) {
 
     console.log('Данные вставлены:', inserted);
     showOk('Анкета сохранена. Спасибо!');
+    if (approved_first === 'ок') {
+    window.location.href = 'index copy.html'
+  } else {
     window.location.href = 'bye.html'
+  }
   } catch (err) {
     console.error(err);
     showError('Ошибка сервера. Повтори попытку позже');

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Input</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <img src="FT20LOGO@4x.png" width="100"><br>
+  <h2>Тестирование</h2>
+  <form id="email-form">
+    <label>Тебе предлагается решить 4 несложных задания, требующих определенных знаний, внимания и сообразительности. В некоторых заданиях предлагаются "готовые" варианты ответов, среди которых следует выбрать правильные, в других заданиях ответ необходимо дать самостоятельно, но во всех случаях найденные тобой ответы следует отметить в соответствующем окошке для ответа.
+    </label>
+      <br>
+    <button type="submit">НАЧАТЬ</button>
+  </form>
+  <p id="email-error" style="color: red;"></p>
+
+  <script src="email.js"></script>
+</body>
+</html>
