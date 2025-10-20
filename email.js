@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = getTelegramUserId();
     const startParam = Telegram.WebApp.initDataUnsafe?.start_param;
     console.log("tg-id:", id);
-    window.tgUserId = 'id';
+    window.tgUserId = id;
     window.tgUserStartParam = startParam;
   } else {
     console.warn('Telegram WebApp не найден — страница не в Telegram WebView?');
@@ -76,3 +76,4 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
   }
 });
+
