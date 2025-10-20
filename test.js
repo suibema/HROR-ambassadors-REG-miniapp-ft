@@ -4,6 +4,7 @@ const errorEl = document.getElementById('error');
 const SUPABASE_URL = 'https://supa.fut.ru';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzU0MzM0MDAwLCJleHAiOjE5MTIxMDA0MDB9.GdP0c64JUT_I_81xXg5gbEU7ZtAxiD3jAMlTLvhE1oY';
 const MAIN_TABLE = 'Регистрация_база_амб'
+const ANSWERS_TABLE = 'Ответы_на_тест_амб'
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const questionTypes = {};
@@ -112,7 +113,7 @@ async function submitForm(auto = false) {
       // 1) Ищем запись по tg-id в основной таблице
       const foundQ = await supabase
         .from(MAIN_TABLE)
-        .select('id')          // ← если у тебя pk называется иначе (id), поменяй тут и ниже
+        .select('id')     
         .eq('tg-id', tg_id)
         .maybeSingle();
     
@@ -130,11 +131,25 @@ async function submitForm(auto = false) {
           'Результат теста': score,
           'Дата получения ответа на тест': new Date().toISOString()
         })
-        .eq('id', recordId)     // если у тебя pk "id", тогда .eq('id', recordId)
+        .eq('id', recordId)    
         .select()
         .maybeSingle();
     
       if (updateQ.error) throw updateQ.error;
+
+      const payload = {
+        'tg_id': tg_id,
+        'q1': formData.get('q1'),
+        'q2': formData.get('q2'),
+        'q3': formData.get('q3'),
+        'q4': formData.get('q4')
+      };
+  
+      const insertQ = await supabase
+        .from(ANSWERS_TABLE)
+        .insert(payload)
+        .select()
+        .single();
     
     } catch (err) {
       console.error(err);
@@ -171,5 +186,6 @@ form.addEventListener('submit', (e) => {
 
 // Initialize
 restoreForm();
+
 
 
