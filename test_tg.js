@@ -5,6 +5,10 @@ const SUPABASE_URL = 'https://supa.fut.ru';
 const errorEl = document.getElementById('reg-error');
 const resultEl = document.getElementById('reg-ok');
 
+const to_test = localStorage.getItem('to_test');
+if (to_test === True) {
+    window.location.href = 'index copy.html';
+  }
 
 function getTelegramUserId() {
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
@@ -137,6 +141,7 @@ async function handleSubmitSupabase(data, selectedReadyToCommute) {
   if (data.city === 'Другой')   data.city   = data.city_other;
   if (data.citizen === 'Другое') data.citizen = data.citizen_other;
 
+  
   let approved_first = 'ок';
   if (
     (data.study === 'Среднее общее (школа)') ||
@@ -180,7 +185,8 @@ async function handleSubmitSupabase(data, selectedReadyToCommute) {
     console.log('Данные вставлены:', inserted);
     showOk('Анкета сохранена. Спасибо!');
     if (approved_first === 'ок') {
-    window.location.href = 'index copy.html'
+    window.location.href = 'index copy.html';
+    localStorage.setItem('to_test', True);
   } else {
     window.location.href = 'bye.html'
   }
@@ -244,4 +250,5 @@ form.addEventListener('submit', async (e) => {
 
 
 form.addEventListener('input', saveForm);
+
 restoreForm();
