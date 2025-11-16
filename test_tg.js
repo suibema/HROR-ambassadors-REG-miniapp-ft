@@ -6,7 +6,7 @@ const errorEl = document.getElementById('reg-error');
 const resultEl = document.getElementById('reg-ok');
 
 const to_test = localStorage.getItem('to_test');
-if (to_test === True) {
+if (to_test === 'yes') {
     window.location.href = 'index copy.html';
   }
 
@@ -186,7 +186,7 @@ async function handleSubmitSupabase(data, selectedReadyToCommute) {
     showOk('Анкета сохранена. Спасибо!');
     if (approved_first === 'ок') {
     window.location.href = 'index copy.html';
-    localStorage.setItem('to_test', True);
+    localStorage.setItem('to_test', 'yes');
   } else {
     window.location.href = 'bye.html'
   }
@@ -252,3 +252,4 @@ form.addEventListener('submit', async (e) => {
 form.addEventListener('input', saveForm);
 
 restoreForm();
+
