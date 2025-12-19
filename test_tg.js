@@ -5,11 +5,6 @@ const SUPABASE_URL = 'https://supa.fut.ru';
 const errorEl = document.getElementById('reg-error');
 const resultEl = document.getElementById('reg-ok');
 
-const to_test = localStorage.getItem('to_test');
-if (to_test === 'yes') {
-    window.location.href = 'index copy.html';
-  }
-
 function getTelegramUserId() {
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
     const user = Telegram.WebApp.initDataUnsafe.user;
@@ -250,5 +245,6 @@ form.addEventListener('submit', async (e) => {
 form.addEventListener('input', saveForm);
 
 restoreForm();
+
 
 
