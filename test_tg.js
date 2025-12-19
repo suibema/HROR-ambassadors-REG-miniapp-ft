@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzU0MzM0MDAwLCJleHAiOjE5MTIxMDA0MDB9.GdP0c64JUT_I_81xXg5gbEU7ZtAxiD3jAMlTLvhE1oY';
-const TABLE = 'Регистрация_база_амб'
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const TABLE = 'Регистрация_база_амб';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const questionNames = ['surname', 'name', 'email', 'phone', 'city', 'city-other', 
   'citizen', 'citizen-other', 'vuz', 'specialty', 'study', 'finished', 'smz'];
 function saveForm() {
@@ -101,17 +101,17 @@ async function handleSubmitSupabase(data, selectedReadyToCommute) {
 
   try {
     const [qEmail, qPhone, qTg] = await Promise.all([
-      supabase
+      sb
         .from(TABLE)
         .select('*', { count: 'exact', head: true })
         .eq('E-mail', email),
 
-      supabase
+      sb
         .from(TABLE)
         .select('*', { count: 'exact', head: true })
         .eq('Номер телефона', phone),
 
-      supabase
+      sb
         .from(TABLE)
         .select('*', { count: 'exact', head: true })
         .eq('tg-id', tgId),
@@ -163,7 +163,7 @@ async function handleSubmitSupabase(data, selectedReadyToCommute) {
       'Самозанятость': data.smz
     };
 
-    const { data: inserted, error } = await supabase
+    const { data: inserted, error } = await sb
       .from(TABLE)
       .insert(payload)
       .select()
@@ -245,6 +245,7 @@ form.addEventListener('submit', async (e) => {
 form.addEventListener('input', saveForm);
 
 restoreForm();
+
 
 
 
