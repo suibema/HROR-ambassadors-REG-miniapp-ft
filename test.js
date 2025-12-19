@@ -162,7 +162,7 @@ async function submitForm(auto = false) {
     localStorage.removeItem('test_data');
 
     form.style.display = 'none';
-    // resultEl.textContent = 'Спасибо, твой тест успешно принят!';
+    resultEl.textContent = 'Спасибо, твой тест успешно принят!';
     window.location.href = 'bye copy.html'
     errorEl.textContent = '';
   } catch (err) {
@@ -186,6 +186,7 @@ form.addEventListener('submit', (e) => {
 
 // Initialize
 restoreForm();
+
 
 
 
