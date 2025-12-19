@@ -41,8 +41,6 @@ document.getElementById('email-form').addEventListener('submit', async function 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzU0MzM0MDAwLCJleHAiOjE5MTIxMDA0MDB9.GdP0c64JUT_I_81xXg5gbEU7ZtAxiD3jAMlTLvhE1oY';
 const TABLE = 'Регистрация_база_амб'
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
   try {
     const existsQ = await supabase
       .from(TABLE)
@@ -76,4 +74,5 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
   }
 });
+
 
