@@ -237,7 +237,6 @@ form.addEventListener('submit', async (e) => {
   
 
   await handleSubmitSupabase(data, selectedReadyToCommute);
-  window.location.href = 'index copy.html'
 
 });
 
@@ -246,6 +245,7 @@ form.addEventListener('submit', async (e) => {
 form.addEventListener('input', saveForm);
 
 restoreForm();
+
 
 
 
