@@ -5,7 +5,7 @@ const SUPABASE_URL = 'https://supa.fut.ru';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzU0MzM0MDAwLCJleHAiOjE5MTIxMDA0MDB9.GdP0c64JUT_I_81xXg5gbEU7ZtAxiD3jAMlTLvhE1oY';
 const MAIN_TABLE = 'Регистрация_база_амб'
 const ANSWERS_TABLE = 'Ответы_на_тест_амб'
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const questionTypes = {};
 ['q1', 'q2', 'q3', 'q4'].forEach(q => questionTypes[q] = 'dropdown');
@@ -111,7 +111,7 @@ async function submitForm(auto = false) {
   try {
     try {
       // 1) Ищем запись по tg-id в основной таблице
-      const foundQ = await supabase
+      const foundQ = await supa
         .from(MAIN_TABLE)
         .select('id')     
         .eq('tg-id', tg_id)
@@ -125,7 +125,7 @@ async function submitForm(auto = false) {
       const recordId = foundQ.data.id;
     
       // 2) Обновляем счёт и дату получения ответа
-      const updateQ = await supabase
+      const updateQ = await supa
         .from(MAIN_TABLE)
         .update({
           'Результат теста': score,
@@ -145,7 +145,7 @@ async function submitForm(auto = false) {
         'q4': formData.get('q4')
       };
   
-      const insertQ = await supabase
+      const insertQ = await supa
         .from(ANSWERS_TABLE)
         .insert(payload)
         .select()
@@ -186,6 +186,7 @@ form.addEventListener('submit', (e) => {
 
 // Initialize
 restoreForm();
+
 
 
 
