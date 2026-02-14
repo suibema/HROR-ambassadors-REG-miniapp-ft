@@ -1,9 +1,6 @@
-const SUPABASE_URL = 'https://supa.fut.ru';
+const YC_FUNCTION_URL = "https://functions.yandexcloud.net/d4e7pfk9fl0iaft2dv4d";
 
-
-const errorEl = document.getElementById('reg-error');
-
-
+const errorEl = document.getElementById("reg-error");
 
 function getTelegramUserId() {
   if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
@@ -22,58 +19,51 @@ document.addEventListener("DOMContentLoaded", () => {
     window.tgUserId = id;
     window.tgUserStartParam = startParam;
   } else {
-    console.warn('Telegram WebApp не найден — страница не в Telegram WebView?');
+    console.warn("Telegram WebApp не найден — страница не в Telegram WebView?");
     window.tgUserId = null;
     window.tgUserStartParam = null;
   }
 });
 
-document.getElementById('email-form').addEventListener('submit', async function (e) {
+document.getElementById("email-form").addEventListener("submit", async function (e) {
   e.preventDefault();
-  const errorEl = document.getElementById('email-error');
+  const errorEl = document.getElementById("email-error");
 
   const tgId = window.tgUserId;
   if (!tgId) {
-    errorEl.textContent = 'Не удалось получить твой Telegram ID. Открой эту страницу из Telegram-бота.';
+    errorEl.textContent = "Не удалось получить твой Telegram ID. Открой эту страницу из Telegram-бота.";
     return;
   }
 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzU0MzM0MDAwLCJleHAiOjE5MTIxMDA0MDB9.GdP0c64JUT_I_81xXg5gbEU7ZtAxiD3jAMlTLvhE1oY';
-const TABLE = 'Регистрация_база_амб';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   try {
-    const existsQ = await supabase
-      .from(TABLE)
-      .select('id', { count: 'exact', head: true })
-      .eq('tg-id', tgId);
+    const resp = await fetch(YC_FUNCTION_URL, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ action: "lookup", tgId }),
+    });
 
-    if (existsQ.error) throw existsQ.error;
+    const data = await resp.json();
+    if (!resp.ok || !data.ok) throw new Error(data.error || "Lookup failed");
 
-    if ((existsQ.count ?? 0) === 0) {
-      errorEl.textContent = 'Не нашли тебя в базе регистрации! Пожалуйста, зарегистрируйся через форму в боте или напиши нам с вопросом';
+    if (!data.found) {
+      errorEl.textContent =
+        "Не нашли тебя в базе регистрации! Пожалуйста, зарегистрируйся через форму в боте или напиши нам с вопросом";
       return;
     }
 
-    const kotResultQ = await supabase
-      .from(TABLE)
-      .select('id', { count: 'exact', head: true })
-      .eq('tg-id', tgId)
-      .neq('Результат теста', -1);
-
-    if (kotResultQ.error) throw kotResultQ.error;
-
-    if ((kotResultQ.count ?? 0) > 0) {
-      errorEl.textContent = 'Мы уже получили результат твоего теста и скоро вернёмся с ответом 😊';
+    // В supabase было: .neq('Результат теста', -1) => значит если результат не -1, то уже получили
+    // Здесь: если testResult === -1 => ещё нет результата (или “не обработан”)
+    // Если в таблице пусто — data.testResult будет null. Это тоже “ещё нет результата”.
+    const testResult = data.testResult; // number|null
+    if (testResult !== null && !Number.isNaN(testResult) && testResult !== -1) {
+      errorEl.textContent = "Мы уже получили результат твоего теста и скоро вернёмся с ответом 😊";
       return;
     }
 
-    localStorage.setItem('test_tg_id', String(tgId));
-    window.location.href = 'test.html';
+    localStorage.setItem("test_tg_id", String(tgId));
+    window.location.href = "test.html";
   } catch (err) {
     console.error(err);
-    errorEl.textContent = 'Ошибка сервера. Повтори попытку позже';
+    errorEl.textContent = "Ошибка сервера. Повтори попытку позже";
   }
 });
-
-
-
